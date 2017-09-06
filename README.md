@@ -7,4 +7,11 @@ It also means that a corrupted data storage file, for one reason or another, may
 
 I have used a database backed system in the past, and may do it again.
 
+# Possible ToDo's
+
+* Make it database backed
+* Raise WARNINGS in the RSS feed when:
+	* Space free reaches a certain threshold.
+	* Load reaches a certain threshold.
+* Have the `sampleData.py` script accept parameters so that the calling cron can control certain criteria.
 
