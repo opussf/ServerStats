@@ -12,6 +12,8 @@ function bytesToString( $bytes ) {
 	return( sprintf( "%s %sB", round( $bytes, 3 ), $u ) );
 }
 
+$loadLimit = 1;
+
 $dataDir = ".";
 $dataFile = "du.json";
 
@@ -51,6 +53,31 @@ $item["pubDate"] = $pubDate;
 $item["link"] = "http://www.zz9-za.com/~opus/du/";
 $item["guid"] = $item["title"];
 $itemData[] = $item;
+
+$load = $toPost['15m'];
+$item=array();
+$item["title"] = "15 minute load: ". ($load < $loadLimit ? "OK" : "WARNING ($load)");
+$item["pubDate"] = $pubDate;
+$item["link"] = "http://www.zz9-za.com/~opus/du/";
+$item["guid"] = $item["title"];
+$itemData[] = $item;
+
+$load = $toPost['5m'];
+$item=array();
+$item["title"] = "5 minute load: ". ($load < $loadLimit ? "OK" : "WARNING ($load)");
+$item["pubDate"] = $pubDate;
+$item["link"] = "http://www.zz9-za.com/~opus/du/";
+$item["guid"] = $item["title"];
+$itemData[] = $item;
+
+$load = $toPost['1m'];
+$item=array();
+$item["title"] = "1 minute load: ". ($load < $loadLimit ? "OK" : "WARNING ($load)");
+$item["pubDate"] = $pubDate;
+$item["link"] = "http://www.zz9-za.com/~opus/du/";
+$item["guid"] = $item["title"];
+$itemData[] = $item;
+
 //var_dump( $itemData );
 
 header("Content-type: application/xml");
