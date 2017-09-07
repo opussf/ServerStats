@@ -60,9 +60,9 @@ print <<<END
 <?xml-stylesheet title='XSL_formatting' type='text/xsl' href='/includes/rss.xsl'?>
 <rss version="2.0">
 <channel>
-<title>Disk Usage</title>
-<link>http://www.zz9-za.com/~opus/gold</link>
-<description>Disk Usage</description>
+<title>Server Stats</title>
+<link>http://www.zz9-za.com/~opus/du</link>
+<description>Server Stats</description>
 <generator>php</generator>
 <ttl>30</ttl>
 
