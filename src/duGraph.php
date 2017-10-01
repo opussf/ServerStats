@@ -2,7 +2,8 @@
 require_once( 'jpgraph/jpgraph.php' );
 require_once( 'jpgraph/jpgraph_line.php' );
 require_once( 'jpgraph/jpgraph_date.php' );
-require_once('jpgraph/jpgraph_log.php');
+require_once( 'jpgraph/jpgraph_utils.inc.php' );
+require_once( 'jpgraph/jpgraph_log.php' );
 
 ini_set('memory_limit', '256M');
 
@@ -43,9 +44,19 @@ print( "<br/>\n" );
 var_dump( $freeData );
 */
 
+list( $tickPositions, $minTickPositions) = DateScaleUtils::GetTicks( $xData, $aType = DSUTILS_HOUR1);
+//$grace = 0;
+//$xmin = $xData[0] - $grace;
+//$xmax = $xData[count($xData)-1] + $grace;
+
 $graph = new Graph( 1400, 600 );
 $graph->SetScale( "datlin" );
 $graph->SetY2Scale( "lin" );
+
+$graph->xaxis->SetPos('min');
+//$graph->xaxis->SetTickPositions( $tickPositions, $minTickPositions );
+$graph->xaxis->SetLabelFormatString( 'D m-d H:i', True );
+$graph->xgrid->Show();
 
 $lineFree = new LinePlot( $freeData, $xData );
 $lineFree->SetLegend( 'Free' );

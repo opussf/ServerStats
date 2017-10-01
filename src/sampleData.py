@@ -3,10 +3,13 @@
 import os
 import json
 import time
+import datetime
 
 dataDir = "."
 dataFile = "du.json"
-dataAge = 86400 * 28  # set as number of seconds
+daySeconds = 86400
+dataAge = (daySeconds * 7) # set as number of seconds
+pruneAge = daySeconds * 2
 
 # get the int timestamp
 now = int( time.time() )
@@ -24,6 +27,10 @@ duData = dict( [ (int(k), v) for k, v in duData.items() ] )
 st = os.statvfs( dataDir )
 load = os.getloadavg()
 
+memPageSize = os.sysconf( 'SC_PAGE_SIZE' )
+physicalMem = os.sysconf( 'SC_PHYS_PAGES' ) * memPageSize
+availMem    = os.sysconf( 'SC_AVPHYS_PAGES' ) * memPageSize
+
 # store in a dict
 du = { 'free': st.f_bavail * st.f_frsize,
 		'total': st.f_blocks * st.f_frsize,
@@ -37,18 +44,17 @@ du = { 'free': st.f_bavail * st.f_frsize,
 duData[ now ] = du
 
 # truncate old data
-timeStamps = sorted( duData.keys() )
 
-cutOff = now - dataAge
+cutOffTS = now - dataAge
+pruneTS = now - pruneAge
 
-done = False if len( timeStamps ) > 1 else True
-while( not done ):
-	testTS = timeStamps.pop( 0 )
-	if testTS < cutOff:
-		del duData[ testTS ] 
-	else: # no data to delete.  short circut the loop
-		done = True
-
+for testTS in duData.keys():
+	if ( testTS < cutOffTS ):  # data point is older than the max cutoff
+		del duData[ testTS ]
+	elif ( testTS < pruneTS ):  # older than a day
+		testDT = datetime.datetime.fromtimestamp( testTS )
+		if testDT.minute != 0:
+			del duData[ testTS ]
 
 # write the data out
 json.dump( duData, open( os.path.join( dataDir, dataFile ), "w" ) )

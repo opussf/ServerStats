@@ -15,3 +15,9 @@ I have used a database backed system in the past, and may do it again.
 	* Load reaches a certain threshold.
 * Have the `sampleData.py` script accept parameters so that the calling cron can control certain criteria.
 
+# Notes:
+JPGraph Legend placement:
+http://jpgraph.net/download/manuals/chunkhtml/ch14s04.html
+
+JPGraph Multi graphs, one image:
+http://jpgraph.net/download/manuals/chunkhtml/ch15s08.html

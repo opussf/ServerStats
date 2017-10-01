@@ -13,6 +13,7 @@ function bytesToString( $bytes ) {
 }
 
 $loadLimit = 1;
+$freespaceLimit = pow(1024,  3);
 
 $dataDir = ".";
 $dataFile = "du.json";
@@ -41,7 +42,7 @@ $item["guid"] = $item["title"];
 $itemData[] = $item;
 
 $item=array();
-$item["title"] = "Disk Free: $dfText";
+$item["title"] = "Disk Free: $dfText" . ( $toPost['free'] < $freespaceLimit ? " WARNING" : "" );
 $item["pubDate"] = $pubDate;
 $item["link"] = "http://www.zz9-za.com/~opus/du/";
 $item["guid"] = $item["title"];
